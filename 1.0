@@ -1,0 +1,21 @@
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+public class HtmlParser {
+    public static void main(String[] args) {
+        String html = "<!DOCTYPE html><!-- ... your HTML content here ... -->";
+        Document doc = Jsoup.parse(html);
+
+        Element targetElement = doc.selectFirst("h3[id=com.tmb.Customchanges.CustomHTMLFormatter.java]");
+        if (targetElement != null) {
+            Element parentSection = targetElement.parent();
+            Elements siblings = parentSection.siblingElements();
+            siblings.remove();
+        }
+
+        String cleanedHtml = doc.html();
+        System.out.println(cleanedHtml);
+    }
+}
